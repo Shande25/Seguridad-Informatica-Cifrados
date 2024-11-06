@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cifrado Asimétrico - RSA</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Cifrado Asimétrico (RSA)</h2>
+        <label for="rsaInput">Texto a cifrar:</label>
+        <input type="text" id="rsaInput" placeholder="Ingresa texto para cifrar">
+        <label for="rsaPublicKey">Clave pública:</label>
+        <input type="text" id="rsaPublicKey" placeholder="Ingresa clave pública">
+        <label for="rsaPrivateKey">Clave privada:</label>
+        <input type="text" id="rsaPrivateKey" placeholder="Ingresa clave privada">
+        <div class="button-group">
+            <button onclick="rsaEncrypt()">Cifrar RSA</button>
+            <button onclick="rsaDecrypt()">Descifrar RSA</button>
+        </div>
+        <div class="output">
+            <strong>Texto cifrado RSA:</strong>
+            <textarea id="rsaEncryptedText" readonly></textarea>
+        </div>
+        <div class="output">
+            <strong>Texto descifrado RSA:</strong>
+            <textarea id="rsaDecryptedText" readonly></textarea>
+        </div>
+    </div>
+    <script src="js/asimetrico.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrsasign/10.5.15/jsrsasign-all-min.js"></script>
+</body>
+</html>

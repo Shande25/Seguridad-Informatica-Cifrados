@@ -1,0 +1,190 @@
+/* General */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #f1f4f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Contenedor principal */
+.container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 700px;
+    padding: 30px 40px;
+    text-align: center;
+    transition: all 0.3s ease;
+    animation: slideIn 0.5s ease-out;
+}
+
+.container:hover {
+    box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+h2 {
+    color: #476a9a;
+    margin-bottom: 20px;
+    font-size: 26px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Botones */
+.button {
+    padding: 12px 25px;
+    background-color: #476a9a;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.3s ease, background-color 0.3s ease;
+    display: inline-block;
+    margin: 10px;
+    font-size: 16px;
+    box-shadow: 0px 4px 8px rgba(71, 106, 154, 0.2);
+}
+
+.button:hover {
+    background-color: #365584;
+    transform: translateY(-3px);
+    box-shadow: 0px 6px 12px rgba(71, 106, 154, 0.3);
+}
+
+button {
+    width: 48%;
+    padding: 12px;
+    background-color: #476a9a;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s, box-shadow 0.3s ease, background-color 0.3s ease;
+    margin-top: 10px;
+    font-size: 16px;
+    box-shadow: 0px 4px 8px rgba(71, 106, 154, 0.2);
+}
+
+button:hover {
+    background-color: #365584;
+    transform: translateY(-3px);
+    box-shadow: 0px 6px 12px rgba(71, 106, 154, 0.3);
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+/* Estilo de entradas y etiquetas */
+label {
+    font-weight: 700;
+    margin-bottom: 5px;
+    display: block;
+    text-align: left;
+    font-size: 14px;
+    color: #333;
+    margin-top: 15px;
+}
+
+input[type="text"], input[type="password"], input[type="file"], textarea {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 15px;
+    color: #333;
+    background-color: #eaf0f9;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus, textarea:focus {
+    border-color: #476a9a;
+    box-shadow: 0px 0px 8px rgba(71, 106, 154, 0.2);
+    outline: none;
+    background-color: #ffffff;
+}
+
+textarea {
+    height: 120px;
+    resize: vertical;
+    overflow-y: auto;
+}
+
+/* Estilos de salida y resultado */
+.output {
+    margin-top: 20px;
+    text-align: left;
+    background-color: #e7eefb;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: inset 0px 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.output strong {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 700;
+    color: #365584;
+}
+
+textarea[readonly] {
+    background-color: #eaf0f9;
+    border: none;
+    color: #555;
+    font-size: 14px;
+    padding: 10px;
+}
+
+/* Enlaces de navegación */
+.nav-links {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.nav-links a {
+    color: #476a9a;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 15px;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #365584;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.container {
+    animation: slideIn 0.6s ease-out, fadeIn 0.6s ease-out;
+}

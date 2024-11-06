@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cifrado Simétrico - AES</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Cifrado Simétrico (AES)</h2>
+        <label for="fileInput">Adjuntar archivo:</label>
+        <input type="file" id="fileInput" accept=".txt" onchange="readFile(event)">
+        <label for="encryptionKey">Clave de cifrado:</label>
+        <input type="password" id="encryptionKey" placeholder="Ingresa la clave">
+        <div class="button-group">
+            <button onclick="encryptFile()">Cifrar Archivo</button>
+            <button onclick="decryptFile()">Descifrar Archivo</button>
+        </div>
+        <div class="output">
+            <strong>Texto cifrado:</strong>
+            <textarea id="encryptedText" readonly></textarea>
+            <button onclick="downloadEncryptedFile()">Descargar Cifrado</button>
+        </div>
+        <div class="output">
+            <strong>Texto descifrado:</strong>
+            <textarea id="decryptedText" readonly></textarea>
+            <button onclick="downloadDecryptedFile()">Descargar Descifrado</button>
+        </div>
+    </div>
+    <script src="js/simetrico.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</body>
+</html>
