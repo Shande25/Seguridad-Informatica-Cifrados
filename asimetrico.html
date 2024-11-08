@@ -2,33 +2,68 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cifrado Asimétrico - RSA</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Cifrado RSA con HTML y JavaScript</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/3.0.0/jsencrypt.min.js"></script>
+    <link rel="stylesheet" href="css/asimetrico.css">
 </head>
 <body>
-    <div class="container">
-        <h2>Cifrado Asimétrico (RSA)</h2>
-        <label for="rsaInput">Texto a cifrar:</label>
-        <input type="text" id="rsaInput" placeholder="Ingresa texto para cifrar">
-        <label for="rsaPublicKey">Clave pública:</label>
-        <input type="text" id="rsaPublicKey" placeholder="Ingresa clave pública">
-        <label for="rsaPrivateKey">Clave privada:</label>
-        <input type="text" id="rsaPrivateKey" placeholder="Ingresa clave privada">
-        <div class="button-group">
-            <button onclick="rsaEncrypt()">Cifrar RSA</button>
-            <button onclick="rsaDecrypt()">Descifrar RSA</button>
+    <div class="container my-5">
+        <h2 class="text-center mb-4">Cifrado Asimétrico RSA</h2>
+
+        <div class="row">
+            <!-- Sección de mensaje -->
+            <div class="col-md-6">
+                <div class="card p-4">
+                    <h3>Mensaje</h3>
+                    <textarea id="mensaje" class="form-control" rows="4" placeholder="Escribe el mensaje aquí..."></textarea>
+                </div>
+            </div>
+
+            <!-- Sección de claves generadas -->
+            <div class="col-md-6">
+                <div class="card p-4">
+                    <h3>Claves Generadas</h3>
+                    <button class="btn btn-primary my-3" onclick="generarClaves()">Generar Claves RSA</button>
+                    <p><strong>Clave Pública:</strong></p>
+                    <textarea id="clavePublica" class="form-control mb-3" rows="3" readonly></textarea>
+                    <p><strong>Clave Privada:</strong></p>
+                    <textarea id="clavePrivada" class="form-control" rows="3" readonly></textarea>
+                </div>
+            </div>
         </div>
-        <div class="output">
-            <strong>Texto cifrado RSA:</strong>
-            <textarea id="rsaEncryptedText" readonly></textarea>
+
+        <div class="row my-4">
+            <!-- Botones de operaciones -->
+            <div class="col-md-6">
+                <div class="card p-4">
+                    <h3>Operaciones</h3>
+                    <button class="btn btn-success mr-2" onclick="cifrarMensaje()">Cifrar Mensaje</button>
+                    <button class="btn btn-danger" onclick="descifrarMensaje()">Descifrar Mensaje</button>
+                </div>
+            </div>
+
+            <!-- Sección de mensaje cifrado -->
+            <div class="col-md-6">
+                <div class="card p-4">
+                    <h3>Mensaje Cifrado</h3>
+                    <textarea id="mensajeCifrado" class="form-control" rows="4" readonly></textarea>
+                </div>
+            </div>
         </div>
-        <div class="output">
-            <strong>Texto descifrado RSA:</strong>
-            <textarea id="rsaDecryptedText" readonly></textarea>
+
+        <div class="row">
+            <!-- Sección de mensaje descifrado -->
+            <div class="col-md-12">
+                <div class="card p-4">
+                    <h3>Mensaje Descifrado</h3>
+                    <textarea id="mensajeDescifrado" class="form-control" rows="4" readonly></textarea>
+                </div>
+            </div>
         </div>
     </div>
-    <script src="js/asimetrico.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrsasign/10.5.15/jsrsasign-all-min.js"></script>
+    <script src="js/asimetrico.js" defer></script>
 </body>
 </html>

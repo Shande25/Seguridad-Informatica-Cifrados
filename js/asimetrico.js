@@ -1,33 +1,28 @@
-function rsaEncrypt() {
-    const text = document.getElementById("rsaInput").value.trim();
-    const publicKey = document.getElementById("rsaPublicKey").value.trim();
-    if (!text || !publicKey) {
-        alert("Por favor, completa todos los campos para RSA.");
-        return;
-    }
-    try {
-        const encrypt = new RSAKey();
-        encrypt.setPublic(publicKey, "10001");
-        const encrypted = encrypt.encrypt(text);
-        document.getElementById("rsaEncryptedText").value = encrypted;
-    } catch (error) {
-        alert("Error en el cifrado RSA: " + error.message);
-    }
-}
+let clavePrivada; 
+let clavePublica; 
 
-function rsaDecrypt() {
-    const encryptedText = document.getElementById("rsaEncryptedText").value.trim();
-    const privateKey = document.getElementById("rsaPrivateKey").value.trim();
-    if (!encryptedText || !privateKey) {
-        alert("Por favor, completa todos los campos para RSA.");
-        return;
-    }
-    try {
-        const decrypt = new RSAKey();
-        decrypt.setPrivateEx(privateKey, "10001");
-        const decrypted = decrypt.decrypt(encryptedText);
-        document.getElementById("rsaDecryptedText").value = decrypted || "Error: Clave incorrecta o contenido no válido.";
-    } catch (error) {
-        alert("Error en el descifrado RSA: " + error.message);
-    }
-}
+function generarClaves() { 
+    const rsa = new JSEncrypt(); 
+    rsa.getKey(); 
+    clavePublica = rsa.getPublicKey(); 
+    clavePrivada = rsa.getPrivateKey(); 
+     
+    document.getElementById("clavePublica").value = clavePublica; 
+    document.getElementById("clavePrivada").value = clavePrivada; 
+} 
+
+function cifrarMensaje() { 
+    const mensaje = document.getElementById("mensaje").value; 
+    const rsa = new JSEncrypt(); 
+    rsa.setPublicKey(clavePublica); 
+    const mensajeCifrado = rsa.encrypt(mensaje); 
+    document.getElementById("mensajeCifrado").value = mensajeCifrado; 
+} 
+
+function descifrarMensaje() { 
+    const mensajeCifrado = document.getElementById("mensajeCifrado").value; 
+    const rsa = new JSEncrypt(); 
+    rsa.setPrivateKey(clavePrivada); 
+    const mensajeDescifrado = rsa.decrypt(mensajeCifrado); 
+    document.getElementById("mensajeDescifrado").value = mensajeDescifrado; 
+} 

@@ -1,34 +1,32 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cifrado Simétrico - AES</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Cifrado Simétrico con AES para Archivos</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <link rel="stylesheet" href="css/simetrico.css">
 </head>
 <body>
     <div class="container">
-        <h2>Cifrado Simétrico (AES)</h2>
-        <label for="fileInput">Adjuntar archivo:</label>
-        <input type="file" id="fileInput" accept=".txt" onchange="readFile(event)">
-        <label for="encryptionKey">Clave de cifrado:</label>
-        <input type="password" id="encryptionKey" placeholder="Ingresa la clave">
-        <div class="button-group">
-            <button onclick="encryptFile()">Cifrar Archivo</button>
-            <button onclick="decryptFile()">Descifrar Archivo</button>
+        <h1>Cifrado Simétrico con AES</h1>
+        
+        <!-- Sección para cifrar archivos -->
+        <div class="file-section">
+            <h2>Cifrar y Descifrar Archivos</h2>
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" placeholder="Mínimo 8 caracteres">
+        
+            <input type="file" id="fileInput">
+            <button onclick="cifrarArchivo()">Cifrar Archivo</button>
+            <button onclick="descifrarArchivo()">Descifrar Archivo</button>
+            <div id="archivoResultado"></div>
+            
+            <!-- Barra de progreso -->
+            <div id="progressContainer" class="progress-container">
+                <div id="progressBar" class="progress-bar"></div>
+            </div>
         </div>
-        <div class="output">
-            <strong>Texto cifrado:</strong>
-            <textarea id="encryptedText" readonly></textarea>
-            <button onclick="downloadEncryptedFile()">Descargar Cifrado</button>
-        </div>
-        <div class="output">
-            <strong>Texto descifrado:</strong>
-            <textarea id="decryptedText" readonly></textarea>
-            <button onclick="downloadDecryptedFile()">Descargar Descifrado</button>
-        </div>
-    </div>
-    <script src="js/simetrico.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+        
+    <script src="js/simetrico.js" defer></script>
 </body>
 </html>

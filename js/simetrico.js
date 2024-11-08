@@ -1,59 +1,104 @@
-let fileContent = '';
-let encryptedContent = '';
-let decryptedContent = '';
-
-function readFile(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            fileContent = e.target.result;
-        };
-        reader.readAsText(file);
-    }
+// Validación de contraseña 
+function validarPassword(password) { 
+    if (password.length < 8) { 
+        alert("La contraseña debe tener al menos 8 caracteres."); 
+        return false; 
+    } 
+    return true; 
 }
 
-function encryptFile() {
-    const encryptionKey = document.getElementById("encryptionKey").value.trim();
-    if (!fileContent || !encryptionKey) {
-        alert("Por favor, adjunta un archivo y completa la clave.");
-        return;
-    }
-    encryptedContent = CryptoJS.AES.encrypt(fileContent, encryptionKey).toString();
-    document.getElementById("encryptedText").value = encryptedContent;
+// Mostrar barra de progreso
+function mostrarProgreso() {
+    const progressContainer = document.getElementById('progressContainer');
+    const progressBar = document.getElementById('progressBar');
+    progressContainer.style.display = 'block';
+    progressBar.style.width = '0%';
+
+    let progreso = 0;
+    const intervalo = setInterval(() => {
+        progreso += 20;
+        progressBar.style.width = `${progreso}%`;
+
+        if (progreso >= 100) {
+            clearInterval(intervalo);
+        }
+    }, 200);
 }
 
-function decryptFile() {
-    const encryptionKey = document.getElementById("encryptionKey").value.trim();
-    if (!encryptedContent || !encryptionKey) {
-        alert("Por favor, completa todos los campos.");
-        return;
-    }
-    const decrypted = CryptoJS.AES.decrypt(encryptedContent, encryptionKey);
-    decryptedContent = decrypted.toString(CryptoJS.enc.Utf8);
-    document.getElementById("decryptedText").value = decryptedContent || "Error: Clave incorrecta o contenido no válido.";
+function ocultarProgreso() {
+    const progressContainer = document.getElementById('progressContainer');
+    const progressBar = document.getElementById('progressBar');
+    progressContainer.style.display = 'none';
+    progressBar.style.width = '0%';
 }
+// Función para cifrar archivos 
+function cifrarArchivo() { 
+    var fileInput = document.getElementById("fileInput").files[0]; 
+    var password = document.getElementById("password").value; 
 
-function downloadEncryptedFile() {
-    if (!encryptedContent) {
-        alert("No hay contenido cifrado para descargar.");
-        return;
-    }
-    const blob = new Blob([encryptedContent], { type: "text/plain" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "archivo_cifrado.txt";
-    link.click();
-}
+    if (!validarPassword(password)) return; 
 
-function downloadDecryptedFile() {
-    if (!decryptedContent) {
-        alert("No hay contenido descifrado para descargar.");
-        return;
-    }
-    const blob = new Blob([decryptedContent], { type: "text/plain" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "archivo_descifrado.txt";
-    link.click();
+    if (fileInput) { 
+        mostrarProgreso();
+        
+        var reader = new FileReader(); 
+        reader.readAsDataURL(fileInput);  // Leer el archivo como base64 
+        reader.onload = function(e) { 
+            var fileData = e.target.result; 
+            var fileCifrado = CryptoJS.AES.encrypt(fileData, password).toString(); 
+
+            ocultarProgreso();
+
+            // Crear un enlace para descargar el archivo cifrado 
+            var enlace = document.createElement('a'); 
+            enlace.href = 'data:application/octet-stream,' + encodeURIComponent(fileCifrado); 
+            enlace.download = fileInput.name + ".cifrado"; 
+            enlace.textContent = "Descargar Archivo Cifrado"; 
+            document.getElementById("archivoResultado").innerHTML = "";
+            document.getElementById("archivoResultado").appendChild(enlace); 
+        }; 
+    } else { 
+        alert("Por favor, selecciona un archivo para cifrar."); 
+    } 
+} 
+
+// Función para descifrar archivos 
+function descifrarArchivo() { 
+    var fileInput = document.getElementById("fileInput").files[0]; 
+    var password = document.getElementById("password").value; 
+
+    if (!validarPassword(password)) return; 
+
+    if (fileInput) { 
+        mostrarProgreso();
+        
+        var reader = new FileReader(); 
+        reader.readAsText(fileInput);  // Leer el archivo cifrado como texto 
+        reader.onload = function(e) { 
+            var fileCifrado = e.target.result; 
+            try { 
+                var bytesDescifrados = CryptoJS.AES.decrypt(fileCifrado, password); 
+                var fileDescifrado = bytesDescifrados.toString(CryptoJS.enc.Utf8); 
+
+                ocultarProgreso();
+
+                if (!fileDescifrado) { 
+                    throw new Error("Error al descifrar"); 
+                } 
+
+                // Crear un Blob para el archivo descifrado y descargarlo 
+                var enlace = document.createElement('a'); 
+                enlace.href = 'data:application/octet-stream,' + encodeURIComponent(fileDescifrado); 
+                enlace.download = fileInput.name.replace(".cifrado", ""); 
+                enlace.textContent = "Descargar Archivo Descifrado"; 
+                document.getElementById("archivoResultado").innerHTML = ""; 
+                document.getElementById("archivoResultado").appendChild(enlace); 
+            } catch (error) { 
+                ocultarProgreso();
+                alert("Error al descifrar el archivo. Verifica la contraseña y el archivo."); 
+            } 
+        }; 
+    } else { 
+        alert("Por favor, selecciona un archivo para descifrar."); 
+    } 
 }
