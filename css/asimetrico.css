@@ -4,7 +4,9 @@ body {
     background-color: #f3f6f9;
     color: #333;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
     margin: 0;
 }
 
@@ -13,7 +15,7 @@ body {
 }
 
 h2 {
-    color: #183153;
+    color: #000000;
     font-size: 30px;
     font-weight: bold;
 }
@@ -89,4 +91,21 @@ textarea.form-control:focus {
 
 .btn:active {
     transform: scale(0.98);
+}
+
+/* Footer */
+.footer {
+    width: 100%;
+    background-color: #000000;
+    color: #ffffff;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 14px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.footer p {
+    margin: 0;
 }
